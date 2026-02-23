@@ -58,7 +58,7 @@ function InteractiveTablet() {
       </RoundedBox>
       <mesh position={[0, 0, 0.051]}>
         <planeGeometry args={[4.0, 2.6]} />
-        <MeshPortalMaterial blend={hovered ? 0.05 : 0}>
+       <MeshPortalMaterial blend={hovered ? 0.05 : 0} blur={0} resolution={512}>
           <color attach="background" args={['#020202']} />
           <Stars radius={50} depth={50} count={2000} factor={4} saturation={1} fade speed={1} />
           <Sparkles count={50} scale={10} size={2} color="#BF00FF" speed={0.4} />

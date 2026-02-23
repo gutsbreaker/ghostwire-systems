@@ -173,7 +173,7 @@ function LusionDevice() {
         {/* The Screen Portal */}
         <mesh position={[0, 0, 0.051]}>
           <planeGeometry args={[4.5, 3.1]} />
-          <MeshPortalMaterial blend={0}>
+          <MeshPortalMaterial blend={0} blur={0} resolution={512}>
             
             {/* Environment inside the portal - Deep Space */}
             <color attach="background" args={['#02050A']} />
