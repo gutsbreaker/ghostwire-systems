@@ -19,9 +19,9 @@ function ChubbyBot({ actionState }: { actionState: string }) {
   const materials = useMemo(() => ({
     body: new THREE.MeshStandardMaterial({ color: '#E0E5EC', roughness: 0.2, metalness: 0.2 }),
     darkMetal: new THREE.MeshStandardMaterial({ color: '#2A2D34', roughness: 0.6, metalness: 0.8 }),
-    redArmor: new THREE.MeshStandardMaterial({ color: '#FF003C', roughness: 0.3, metalness: 0.6, clearcoat: 1.0 }),
-    blueArmor: new THREE.MeshStandardMaterial({ color: '#00F0FF', roughness: 0.3, metalness: 0.6, clearcoat: 1.0 }),
-    yellowArmor: new THREE.MeshStandardMaterial({ color: '#FFD700', roughness: 0.3, metalness: 0.6, clearcoat: 1.0 }),
+  redArmor: new THREE.MeshPhysicalMaterial({ color: '#FF003C', roughness: 0.3, metalness: 0.6, clearcoat: 1.0 }),
+    blueArmor: new THREE.MeshPhysicalMaterial({ color: '#00F0FF', roughness: 0.3, metalness: 0.6, clearcoat: 1.0 }),
+    yellowArmor: new THREE.MeshPhysicalMaterial({ color: '#FFD700', roughness: 0.3, metalness: 0.6, clearcoat: 1.0 }),
     eye: new THREE.MeshBasicMaterial({ color: '#0A0A0A' }),
     glowVisor: new THREE.MeshBasicMaterial({ color: '#00F0FF', transparent: true, opacity: 0.8 }),
     scannerLaser: new THREE.MeshBasicMaterial({ color: '#39FF14', transparent: true, opacity: 0.6, blending: THREE.AdditiveBlending }),
