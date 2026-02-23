@@ -129,7 +129,9 @@ export default function ProductsPage() {
               </div>
 
               {/* The 3D Canvas component */}
-              <HardwareShowcase activePackage={activePackage} />
+              <div className="absolute inset-0 z-0">
+                <HardwareShowcase activePackage={activePackage} />
+              </div>
 
             </div>
           </div>
