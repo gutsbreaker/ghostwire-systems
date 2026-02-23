@@ -1,115 +1,140 @@
 'use client';
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Store, Utensils, Factory, LineChart, ChevronRight } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Store, Utensils, Monitor, Server, Cpu, Smartphone, Box, Layers, ArrowRight } from 'lucide-react';
+import { HardwareShowcase } from '@/components/3d/HardwareShowcase';
 
 export default function ProductsPage() {
+  const [industry, setIndustry] = useState<'fnb' | 'retail'>('fnb');
+  const [activePackage, setActivePackage] = useState<string>('fnb-tablet');
+
+  const fnbPackages = [
+    { id: 'software', name: 'Software Only', desc: 'Bring your own hardware. iPad, Android, or Web.', icon: Layers },
+    { id: 'fnb-tablet', name: 'Complete Tablet Pkg', desc: '10" Tablet, Stand, Cash Drawer, Thermal Printer.', icon: Smartphone },
+    { id: 'fnb-kds', name: 'Kitchen Display (KDS)', desc: 'Impact-resistant Kitchen Screen for hot-line routing.', icon: Monitor },
+    { id: 'fnb-cfd', name: 'Customer Display (CFD)', desc: 'Forward-facing screen for digital tips and totals.', icon: Monitor },
+    { id: 'fnb-whole', name: 'The Whole Matrix', desc: 'Register, CFD, Printer, Drawer, and dedicated KDS.', icon: Server },
+  ];
+
+  const retailPackages = [
+    { id: 'software', name: 'Software Only', desc: 'Bring your own hardware. Runs on any browser.', icon: Layers },
+    { id: 'retail-tablet', name: 'Tablet Retail Set', desc: 'Tablet, Stand, Drawer, Printer & Barcode Scanner.', icon: Smartphone },
+    { id: 'retail-pc', name: 'Desktop PC Set', desc: '22" Monitor, CPU, KB/M, Scanner, Printer, Drawer.', icon: Cpu },
+    { id: 'fnb-cfd', name: 'Customer Display (CFD)', desc: 'Forward-facing screen for receipt options.', icon: Monitor },
+    { id: 'retail-whole', name: 'The Whole Matrix', desc: 'Full PC/Tablet base + CFD + Scanner + Printer + Drawer.', icon: Box },
+  ];
+
+  const currentPackages = industry === 'fnb' ? fnbPackages : retailPackages;
+
+  // Auto-switch default package when changing industry
+  const handleIndustryChange = (mode: 'fnb' | 'retail') => {
+    setIndustry(mode);
+    setActivePackage(mode === 'fnb' ? 'fnb-tablet' : 'retail-pc');
+  };
+
   return (
-    <main className="min-h-screen bg-deep-black pt-28 pb-20">
+    <main className="min-h-screen bg-deep-black pt-28 pb-20 overflow-hidden">
       
       {/* Header */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-16">
         <motion.h1 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-5xl md:text-6xl font-orbitron text-ghost-white mb-6"
+          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+          className="text-4xl md:text-6xl font-orbitron text-ghost-white mb-6"
         >
-          THE <span className="text-glow-cyan">GHOSTWIRE</span> SUITE
+          DEPLOYMENT <span className={industry === 'fnb' ? 'text-cyber-cyan text-glow-cyan' : 'text-neon-green text-glow-green'}>PACKAGES</span>
         </motion.h1>
         <motion.p 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="text-xl font-rajdhani text-ghost-white/70 max-w-3xl mx-auto"
+          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
+          className="text-lg md:text-xl font-rajdhani text-ghost-white/70 max-w-2xl mx-auto"
         >
-          A fully integrated ecosystem of Point of Sale and Enterprise Resource Planning modules, 
-          designed to scale from a single pop-up shop to a global franchise grid.
+          Select your industry to view military-grade hardware bundles, entirely rotatable and inspectable in 3D space.
         </motion.p>
       </div>
 
-      {/* Product Sections */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-32">
-        
-        {/* RETAIL POS */}
-        <div className="flex flex-col lg:flex-row items-center gap-12">
-          <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="w-full lg:w-1/2">
-            <div className="p-4 rounded-xl bg-neon-green/10 text-neon-green w-16 h-16 flex items-center justify-center mb-6">
-              <Store className="w-8 h-8" />
-            </div>
-            <h2 className="text-4xl font-orbitron text-ghost-white mb-4">Retail <span className="text-neon-green">POS</span></h2>
-            <p className="font-rajdhani text-lg text-ghost-white/70 mb-6 leading-relaxed">
-              Designed for high-traffic environments. Scan barcodes in milliseconds, manage complex product variations (size/color matrix), and seamlessly process returns or exchanges.
-            </p>
-            <ul className="space-y-3 mb-8">
-              <li className="flex items-center text-ghost-white/80 font-rajdhani"><ChevronRight className="w-5 h-5 text-neon-green mr-2" /> Unlimited SKU Management</li>
-              <li className="flex items-center text-ghost-white/80 font-rajdhani"><ChevronRight className="w-5 h-5 text-neon-green mr-2" /> Custom Label & Barcode Printing</li>
-              <li className="flex items-center text-ghost-white/80 font-rajdhani"><ChevronRight className="w-5 h-5 text-neon-green mr-2" /> Built-in Customer Loyalty Engine</li>
-            </ul>
-            <Button variant="neon-green">Explore Retail</Button>
-          </motion.div>
-          <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="w-full lg:w-1/2 h-80 glass rounded-2xl border border-neon-green/30 flex items-center justify-center bg-[url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&q=80')] bg-cover bg-center overflow-hidden relative">
-             <div className="absolute inset-0 bg-deep-black/60 backdrop-blur-sm"></div>
-             {/* Abstract UI representation */}
-             <div className="relative z-10 w-3/4 h-3/4 border border-neon-green/40 rounded bg-deep-black/80 p-4 shadow-neon-green flex flex-col">
-                <div className="w-full h-8 border-b border-neon-green/30 mb-4 flex gap-2"><div className="w-20 h-full bg-neon-green/20"></div></div>
-                <div className="flex-grow grid grid-cols-3 gap-2"><div className="col-span-2 bg-ghost-white/5 rounded"></div><div className="bg-neon-green/10 rounded"></div></div>
-             </div>
-          </motion.div>
+      {/* Industry Toggle */}
+      <div className="flex justify-center mb-16">
+        <div className="glass p-2 rounded-full border border-white/10 flex gap-2 relative z-20">
+          <button 
+            onClick={() => handleIndustryChange('fnb')} 
+            className={`px-8 py-3 rounded-full font-orbitron transition-all flex items-center gap-2 ${industry === 'fnb' ? 'bg-cyber-cyan text-black shadow-neon-cyan' : 'text-white/50 hover:text-white'}`}
+          >
+            <Utensils className="w-5 h-5" /> Culinary / F&B
+          </button>
+          <button 
+            onClick={() => handleIndustryChange('retail')} 
+            className={`px-8 py-3 rounded-full font-orbitron transition-all flex items-center gap-2 ${industry === 'retail' ? 'bg-neon-green text-black shadow-neon-green' : 'text-white/50 hover:text-white'}`}
+          >
+            <Store className="w-5 h-5" /> Retail Systems
+          </button>
         </div>
+      </div>
 
-        {/* RESTAURANT & KDS */}
-        <div className="flex flex-col lg:flex-row-reverse items-center gap-12">
-          <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="w-full lg:w-1/2">
-            <div className="p-4 rounded-xl bg-cyber-cyan/10 text-cyber-cyan w-16 h-16 flex items-center justify-center mb-6">
-              <Utensils className="w-8 h-8" />
+      {/* Main Hardware Configurator */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+          
+          {/* Left Column: List of Packages */}
+          <div className="lg:col-span-4 space-y-4 relative z-20">
+            <h3 className="font-orbitron text-xl text-ghost-white mb-6 border-b border-white/10 pb-4">Select Configuration</h3>
+            
+            <AnimatePresence mode="wait">
+              <motion.div 
+                key={industry}
+                initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }}
+                className="space-y-4"
+              >
+                {currentPackages.map(pkg => {
+                  const isActive = activePackage === pkg.id;
+                  const themeColor = industry === 'fnb' ? 'cyber-cyan' : 'neon-green';
+                  return (
+                    <button
+                      key={pkg.id}
+                      onClick={() => setActivePackage(pkg.id)}
+                      className={`w-full text-left p-5 rounded-xl border transition-all duration-300 flex items-start gap-4 group ${isActive ? `bg-${themeColor}/10 border-${themeColor} shadow-[0_0_15px_rgba(var(--color-${themeColor}),0.3)]` : 'bg-deep-black/50 border-white/10 hover:border-white/30'}`}
+                    >
+                      <div className={`p-2 rounded-lg ${isActive ? `bg-${themeColor}/20 text-${themeColor}` : 'bg-white/5 text-white/50 group-hover:text-white'}`}>
+                        <pkg.icon className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <h4 className={`font-orbitron text-lg mb-1 ${isActive ? `text-${themeColor}` : 'text-ghost-white'}`}>{pkg.name}</h4>
+                        <p className="font-rajdhani text-sm text-ghost-white/60 leading-relaxed">{pkg.desc}</p>
+                      </div>
+                    </button>
+                  );
+                })}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Right Column: 3D Lusion-style Showcase */}
+          <div className="lg:col-span-8 relative">
+            <div className={`absolute inset-0 bg-${industry === 'fnb' ? 'cyber-cyan' : 'neon-green'}/5 blur-[100px] rounded-full pointer-events-none`}></div>
+            
+            <div className={`glass w-full h-[500px] lg:h-[700px] rounded-2xl border ${industry === 'fnb' ? 'border-cyber-cyan/30' : 'border-neon-green/30'} relative overflow-hidden flex flex-col`}>
+              
+              {/* Overlay UI Hints */}
+              <div className="absolute top-6 left-6 z-10 pointer-events-none">
+                 <div className="flex items-center gap-2 mb-1">
+                   <div className={`w-2 h-2 rounded-full animate-pulse ${industry === 'fnb' ? 'bg-cyber-cyan' : 'bg-neon-green'}`}></div>
+                   <span className="font-mono text-xs text-white/70">INTERACTIVE 3D VIEW</span>
+                 </div>
+                 <h2 className={`font-orbitron text-2xl ${industry === 'fnb' ? 'text-cyber-cyan' : 'text-neon-green'}`}>
+                   {currentPackages.find(p => p.id === activePackage)?.name}
+                 </h2>
+              </div>
+              
+              <div className="absolute bottom-6 right-6 z-10 pointer-events-none bg-deep-black/60 backdrop-blur px-4 py-2 rounded-full border border-white/10">
+                 <p className="font-mono text-xs text-white/50 flex items-center gap-2">DRAG TO ROTATE <ArrowRight className="w-3 h-3" /></p>
+              </div>
+
+              {/* The 3D Canvas component */}
+              <HardwareShowcase activePackage={activePackage} />
+
             </div>
-            <h2 className="text-4xl font-orbitron text-ghost-white mb-4">Hospitality <span className="text-cyber-cyan">KDS</span></h2>
-            <p className="font-rajdhani text-lg text-ghost-white/70 mb-6 leading-relaxed">
-              Ditch the paper tickets. Ghostwire instantly routes orders from the front-of-house directly to the correct prep stations via our interactive Kitchen Display System.
-            </p>
-            <ul className="space-y-3 mb-8">
-              <li className="flex items-center text-ghost-white/80 font-rajdhani"><ChevronRight className="w-5 h-5 text-cyber-cyan mr-2" /> Drag-and-Drop Floor Plans</li>
-              <li className="flex items-center text-ghost-white/80 font-rajdhani"><ChevronRight className="w-5 h-5 text-cyber-cyan mr-2" /> Split Checks & Seat Tracking</li>
-              <li className="flex items-center text-ghost-white/80 font-rajdhani"><ChevronRight className="w-5 h-5 text-cyber-cyan mr-2" /> 3rd-Party Delivery Integrations</li>
-            </ul>
-            <Button variant="neon-cyan">Explore Hospitality</Button>
-          </motion.div>
-          <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="w-full lg:w-1/2 h-80 glass rounded-2xl border border-cyber-cyan/30 flex items-center justify-center relative overflow-hidden">
-             {/* Abstract KDS UI representation */}
-             <div className="absolute inset-0 bg-cyber-cyan/5"></div>
-             <div className="relative z-10 w-full h-full p-6 grid grid-cols-3 gap-4">
-                <div className="bg-deep-black/80 border border-cyber-cyan/40 rounded p-3 flex flex-col"><div className="h-4 w-1/2 bg-cyber-cyan mb-2"></div><div className="h-2 w-full bg-ghost-white/20 mb-1"></div><div className="h-2 w-3/4 bg-ghost-white/20 mb-4"></div><div className="mt-auto h-8 w-full bg-cyber-cyan/20 rounded"></div></div>
-                <div className="bg-deep-black/80 border border-cyber-cyan/40 rounded p-3 flex flex-col"><div className="h-4 w-1/2 bg-cyber-cyan mb-2"></div><div className="h-2 w-full bg-ghost-white/20 mb-1"></div><div className="h-2 w-3/4 bg-ghost-white/20 mb-4"></div><div className="mt-auto h-8 w-full bg-cyber-cyan/20 rounded"></div></div>
-                <div className="bg-deep-black/80 border border-neon-green/40 rounded p-3 flex flex-col opacity-50"><div className="h-4 w-1/2 bg-neon-green mb-2"></div><div className="h-2 w-full bg-ghost-white/20 mb-1"></div></div>
-             </div>
-          </motion.div>
-        </div>
+          </div>
 
-        {/* ENTERPRISE ERP */}
-        <div className="flex flex-col lg:flex-row items-center gap-12">
-          <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="w-full lg:w-1/2">
-            <div className="p-4 rounded-xl bg-electric-purple/10 text-electric-purple w-16 h-16 flex items-center justify-center mb-6">
-              <Factory className="w-8 h-8" />
-            </div>
-            <h2 className="text-4xl font-orbitron text-ghost-white mb-4">Enterprise <span className="text-electric-purple">ERP</span></h2>
-            <p className="font-rajdhani text-lg text-ghost-white/70 mb-6 leading-relaxed">
-              For operations that require more than just ringing up sales. Manage vendors, track raw ingredients, calculate labor costs, and monitor multi-warehouse logistics.
-            </p>
-            <ul className="space-y-3 mb-8">
-              <li className="flex items-center text-ghost-white/80 font-rajdhani"><ChevronRight className="w-5 h-5 text-electric-purple mr-2" /> Automated Purchase Orders</li>
-              <li className="flex items-center text-ghost-white/80 font-rajdhani"><ChevronRight className="w-5 h-5 text-electric-purple mr-2" /> Employee Time & Attendance</li>
-              <li className="flex items-center text-ghost-white/80 font-rajdhani"><ChevronRight className="w-5 h-5 text-electric-purple mr-2" /> Franchise Royalty Calculations</li>
-            </ul>
-            <Button variant="neon-purple">Explore Enterprise</Button>
-          </motion.div>
-          <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="w-full lg:w-1/2 h-80 glass rounded-2xl border border-electric-purple/30 flex items-center justify-center relative overflow-hidden">
-             <div className="absolute inset-0 bg-electric-purple/5"></div>
-             <LineChart className="w-32 h-32 text-electric-purple/40" />
-          </motion.div>
         </div>
-
       </div>
     </main>
   );

@@ -1,9 +1,24 @@
 // FILE: components/layout/Footer.tsx
 import React from 'react';
 import Link from 'next/link';
-import { Github, Twitter, Linkedin, Mail, Zap } from 'lucide-react';
-
+import { Facebook, Instagram, Mail, Zap } from 'lucide-react';
+const TikTokIcon = ({ className }: { className?: string }) => (
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="2" 
+    strokeLinecap="round" 
+    strokeLinejoin="round" 
+    className={className}
+  >
+    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+  </svg>
+);
 export function Footer() {
+
+  
   const currentYear = new Date().getFullYear();
 
   const footerLinks = {
@@ -28,10 +43,10 @@ export function Footer() {
   };
 
   const socialLinks = [
-    { icon: Github, href: 'https://github.com', label: 'GitHub' },
-    { icon: Twitter, href: 'https://twitter.com', label: 'Twitter' },
-    { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-    { icon: Mail, href: 'mailto:contact@ghostwire.com', label: 'Email' },
+    { icon: Facebook, href: 'https://www.facebook.com/ghostwiresys', label: 'Facebook' },
+    { icon: Instagram, href: 'https://www.instagram.com/aistoriesimagined1/', label: 'Instagram' },
+    { icon: TikTokIcon, href: 'https://www.tiktok.com/@ghostwiresystems', label: 'TikTok' },
+    { icon: Mail, href: 'mailto:abelidoguts@gmail.com', label: 'Email' },
   ];
 
   return (
