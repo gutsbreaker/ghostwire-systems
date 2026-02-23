@@ -12,11 +12,9 @@ export function HardwareScene() {
       <directionalLight position={[-10, -10, -10]} intensity={1} color="#BF00FF" />
       <directionalLight position={[0, 10, -10]} intensity={1.5} color="#39FF14" />
 
-      {/* FIX: Changed snap to true for strict TypeScript compiler */}
+      {/* FIX: Removed 'config' and 'snap' entirely to bypass strict TS errors */}
       <PresentationControls 
         global 
-        config={{ mass: 2, tension: 400, friction: 26 }} 
-        snap={true} 
         rotation={[0.2, -0.4, 0]} 
         polar={[-Math.PI / 3, Math.PI / 3]} 
         azimuth={[-Math.PI / 2, Math.PI / 2]}

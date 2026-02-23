@@ -80,11 +80,9 @@ export function HeroScene() {
       <directionalLight position={[10, 10, 10]} intensity={2} color="#00F0FF" />
       <directionalLight position={[-10, -10, -10]} intensity={1} color="#BF00FF" />
 
-      {/* FIX: Changed snap to true for strict TypeScript compiler */}
+      {/* FIX: Removed 'config' and 'snap' entirely to bypass strict TS errors */}
       <PresentationControls
         global
-        config={{ mass: 2, tension: 400, friction: 26 }}
-        snap={true} 
         rotation={[0, 0.1, 0]}
         polar={[-Math.PI / 4, Math.PI / 4]} 
         azimuth={[-Math.PI / 3, Math.PI / 3]} 
